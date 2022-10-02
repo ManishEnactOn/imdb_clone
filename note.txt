@@ -1,0 +1,5 @@
+ single movie filter in upcoming page:
+ 
+myMovie = movieData.filter((list) => {return list.genre_ids.some((data) => data === selectedItem.id) });
+setupComingMovie(myMovie);
+console.log(upComingMovie);
