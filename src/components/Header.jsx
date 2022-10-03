@@ -18,7 +18,7 @@ import { watchListSelector } from "../atom";
 const Header = () => {
   const [text, setText] = useRecoilState(watchListSelector);
   const { isUser, _user, logout } = useAuth();
-  console.log("isUser", isUser, "user", _user.uid);
+  // console.log("isUser", isUser, "user", _user.uid);
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
 

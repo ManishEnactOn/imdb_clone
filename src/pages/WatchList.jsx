@@ -1,33 +1,86 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 import WatchlistCart from "../components/WatchlistCart";
-import { getAuth } from "firebase/auth";
 import { useRecoilState } from "recoil";
 import { watchListSelector } from "../atom";
-const singleMovieApi = `https://api.themoviedb.org/3/movie/634649?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
+import useAuth from "../customhooks/use-auth";
+// const watchListUrl = `https://api.themoviedb.org/3/movie/634649?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
 
 const WatchList = () => {
-  const [singleMovie, setSingleMovie] = useState([]);
+  const [watchListData, setWatchListData] = useState([]);
+  const [defaultData, setDefaultData] = useState([]);
   const [text, setText] = useRecoilState(watchListSelector);
-  const auth = getAuth();
+  const { _user } = useAuth();
+  var currentData;
+  let currentUserData = text.find((item) => item.uid === _user.uid);
 
-  // useMemo(() => {
-  //   var currentUseruid = auth.currentUser.uid;
-  //   let data = text.slice();
-  //   let getId = data.find((id) => (id = currentUseruid));
-  //   // let watchlist = data.filter(({ genre_ids: id1 }) => selectedList.some(({ id: id2 }) => id1.includes(id2)));
-  // }, []);
+  const myWatchList = () => {
+    const promises = currentUserData.watchListId.map(async (data) => {
+      return fetch(
+        `https://api.themoviedb.org/3/movie/${data}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+      ).then((response) => {
+        return response.json();
+      });
+    });
 
+    Promise.all(promises).then((results) => {
+      const list = results.map((result) => result);
+      console.log("list", list);
+      setWatchListData(list);
+      setDefaultData(list);
+    });
+  };
   useEffect(() => {
-    fetch(singleMovieApi)
-      .then((res) => res.json())
-      .then((singleMovie) =>
-        setTimeout(() => {
-          setSingleMovie(singleMovie);
-        }, 1000)
-      );
-  }, []);
-  //   console.log("movie:", singleMovie);
+    myWatchList();
+  }, [currentUserData.watchListId]);
+
+  const sortByRatings = () => {
+    currentData = watchListData.slice();
+    setWatchListData(currentData.sort((a, b) => a.vote_average - b.vote_average));
+  };
+
+  const sortByAlphabetical = () => {
+    currentData = watchListData.slice();
+    setWatchListData(currentData.sort((a, b) => a.title.localeCompare(b.title)));
+  };
+
+  const sortByPopularity = () => {
+    currentData = watchListData.slice();
+    setWatchListData(currentData.sort((a, b) => a.popularity - b.popularity));
+  };
+  const sortByReleaseDate = () => {
+    currentData = watchListData.slice();
+    setWatchListData(
+      currentData.sort((a, b) => a.release_date.split("-")[0].localeCompare(b.release_date.split("-")[0]))
+    );
+  };
+
+  const sortByListOrder = () => {
+    console.log("defaultData", defaultData);
+    setWatchListData(defaultData);
+  };
+
+  const optionHandler = (e) => {
+    switch (e.target.value) {
+      case "IMDb Rating":
+        sortByRatings();
+        break;
+      case "Alphabetical":
+        sortByAlphabetical();
+        break;
+      case "Popularity":
+        sortByPopularity();
+        break;
+      case "Release Date":
+        sortByReleaseDate();
+        break;
+
+      default:
+        sortByListOrder();
+        break;
+    }
+  };
+
   return (
     <div className="bg-gray-40 h-screen">
       <div div className="signIn-container bg-white">
@@ -47,18 +100,18 @@ const WatchList = () => {
 
           <div className="flex items-center space-x-2">
             <h4 className="text-14 font-normal text-gray-70">Sort by:</h4>
-            <select className="px-4 py-1 border-2 rounded text-14 font-normal text-gray-70">
-              <option value="grapefruit">List Order</option>
-              <option value="grapefruit">Alphabetical</option>
-              <option value="lime">IMDb Rating</option>
-              <option value="coconut">Popularity</option>
-              <option value="mango">Release Date</option>
+            <select onChange={optionHandler} className="px-4 py-1 border-2 rounded text-14 font-normal text-gray-70">
+              <option value="listOrder">List Order</option>
+              <option value="Alphabetical">Alphabetical</option>
+              <option value="IMDb Rating">IMDb Rating</option>
+              <option value="Popularity">Popularity</option>
+              <option value="Release Date">Release Date</option>
             </select>
           </div>
         </div>
-        <div className="watchList px-6 py-2">
-          <WatchlistCart data={singleMovie} />
-        </div>
+
+        {watchListData.length > 0 &&
+          watchListData.map((watchList) => <WatchlistCart key={watchList.id} data={watchList} />)}
       </div>
     </div>
   );

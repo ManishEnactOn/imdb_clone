@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import useAuth from "../customhooks/use-auth";
-
 import { NavLink } from "react-router-dom";
 import { ReactComponent as WatchListIcon } from "../assets/watchlisticon.svg";
 import { ReactComponent as PlusIcon } from "../assets/plusicon.svg";
@@ -8,7 +7,6 @@ import { ReactComponent as StarIcon } from "../assets/star.svg";
 import { ReactComponent as WatchNow } from "../assets/watchnow.svg";
 import { ReactComponent as PauseIcon } from "../assets/pausebutton.svg";
 import { ReactComponent as CheckIcon } from "../assets/check.svg";
-import { AppContext } from "../context/context";
 import { useRecoilState } from "recoil";
 import { watchListSelector } from "../atom";
 
@@ -16,21 +14,14 @@ const Movie = ({ data }) => {
   const { _user } = useAuth();
   const [text, setText] = useRecoilState(watchListSelector);
   const [isSelect, setIsSelect] = useState(false);
-  // const { auth } = useContext(AppContext);
   var exists;
-  // var currentUseruid;
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     currentUseruid = auth.currentUser.uid;
-  //   }, 1000);
-  // });
 
   const addWatchList = (id) => {
-    exists = text.find((item) => item.uid === currentUseruid);
+    exists = text.find((item) => item.uid === _user.uid);
     if (exists) {
       setText(
         text.map((item) =>
-          item.uid === currentUseruid
+          item.uid === _user.uid
             ? {
                 ...exists,
                 watchListId: exists.watchListId ? [...exists.watchListId, id] : [id],
@@ -39,15 +30,15 @@ const Movie = ({ data }) => {
         )
       );
     } else {
-      setText((prev) => [...prev, { uid: currentUseruid, watchListId: [id] }]);
+      setText((prev) => [...prev, { uid: _user.uid, watchListId: [id] }]);
     }
   };
   const removeWatchList = (id) => {
-    exists = text.find((item) => item.uid === currentUseruid);
+    exists = text.find((item) => item.uid === _user.uid);
     if (exists) {
       setText(
         text.map((item) =>
-          item.uid === currentUseruid
+          item.uid === _user.uid
             ? {
                 ...exists,
                 watchListId: exists.watchListId.filter((id1) => id1 !== id),
