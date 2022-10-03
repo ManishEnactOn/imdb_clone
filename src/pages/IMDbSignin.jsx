@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { auth } from "../firebase/firebase";
 import UserInfo from "../components/UserInfo";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 const IMDbSignin = () => {

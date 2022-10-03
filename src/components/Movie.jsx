@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
+import useAuth from "../customhooks/use-auth";
+
 import { NavLink } from "react-router-dom";
 import { ReactComponent as WatchListIcon } from "../assets/watchlisticon.svg";
 import { ReactComponent as PlusIcon } from "../assets/plusicon.svg";
@@ -11,16 +13,17 @@ import { useRecoilState } from "recoil";
 import { watchListSelector } from "../atom";
 
 const Movie = ({ data }) => {
+  const { _user } = useAuth();
   const [text, setText] = useRecoilState(watchListSelector);
   const [isSelect, setIsSelect] = useState(false);
-  const { auth } = useContext(AppContext);
+  // const { auth } = useContext(AppContext);
   var exists;
-  var currentUseruid;
-  useEffect(() => {
-    setTimeout(() => {
-      currentUseruid = auth.currentUser.uid;
-    }, 1000);
-  });
+  // var currentUseruid;
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     currentUseruid = auth.currentUser.uid;
+  //   }, 1000);
+  // });
 
   const addWatchList = (id) => {
     exists = text.find((item) => item.uid === currentUseruid);
@@ -65,17 +68,9 @@ const Movie = ({ data }) => {
   return (
     <div className="relative">
       <div onClick={() => getMovieId(data.id)}>
-        <WatchListIcon
-          className={`absolute z-50 cursor-pointer ${isSelect && "fill-yellow-400"}`}
-        />
-        <PlusIcon
-          className={`absolute cursor-pointer text-white z-50 ${isSelect ? "hidden" : "block"} `}
-        />
-        <CheckIcon
-          className={`absolute cursor-pointer text-black z-50 h-6 w-6 ${
-            isSelect ? "block" : "hidden"
-          }`}
-        />
+        <WatchListIcon className={`absolute z-50 cursor-pointer ${isSelect && "fill-yellow-400"}`} />
+        <PlusIcon className={`absolute cursor-pointer text-white z-50 ${isSelect ? "hidden" : "block"} `} />
+        <CheckIcon className={`absolute cursor-pointer text-black z-50 h-6 w-6 ${isSelect ? "block" : "hidden"}`} />
       </div>
       <NavLink to={`/singlemovie/${data.id}`}>
         <div className="cursor-pointer">

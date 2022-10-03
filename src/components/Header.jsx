@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
+import useAuth from "../customhooks/use-auth";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
@@ -11,52 +12,24 @@ import { ReactComponent as MovieIcon } from "../assets/movies.svg";
 import { useNavigate } from "react-router-dom";
 import MenuCategory from "./MenuCategory";
 import SubCategory from "./SubCategory";
-import { auth } from "../firebase/firebase";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useRecoilState } from "recoil";
 import { watchListSelector } from "../atom";
-import { AppContext } from "../context/context";
 
 const Header = () => {
   const [text, setText] = useRecoilState(watchListSelector);
-  const { auth } = useContext(AppContext);
-
-  const watchListCart = useMemo(() => {
-    setTimeout(() => {
-      var currentUseruid = auth.currentUser.uid;
-      let data = text.slice();
-      let getId = data.find((id) => (id = currentUseruid));
-      let cart = getId.watchListId.length;
-      return cart;
-    }, 1000);
-  }, []);
-  console.log(watchListCart);
+  const { isUser, _user, logout } = useAuth();
+  console.log("isUser", isUser, "user", _user.uid);
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
-  const [isUser, setIsUser] = useState(false);
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setIsUser(true);
-      } else {
-        setIsUser(false);
-      }
-    });
-  }, [auth]);
 
   const userSignOut = () => {
-    auth.signOut();
+    logout();
   };
 
   return (
     <div>
       {/* ******* Menu Section ********* */}
-      <div
-        className={`absolute z-[99] bg-primary h-full w-full text-white ${
-          toggle ? "block" : "hidden"
-        }`}
-      >
+      <div className={`absolute z-[99] bg-primary h-full w-full text-white ${toggle ? "block" : "hidden"}`}>
         <div className="signIn-container">
           <div className="flex-between py-8">
             <div className="imdb-logo cursor-pointer rounded overflow-hidden">
@@ -93,10 +66,7 @@ const Header = () => {
               </div>
             </div>
             <div>
-              <MenuCategory
-                icon={<StarIcon className="text-yellow-150 h-6" />}
-                title="Awards & Events"
-              />
+              <MenuCategory icon={<StarIcon className="text-yellow-150 h-6" />} title="Awards & Events" />
               <div className=" flex flex-col space-y-3 pl-9 pt-4">
                 <SubCategory title="Oscars" />
                 <SubCategory title="Best Picture Winners" />
@@ -152,7 +122,7 @@ const Header = () => {
             <BookmarkIcon className="h-5 w-5 text-white" />
             <span className="text-white text-14 leading-6 font-medium ">Watchlist</span>
             {/* <span className="text-red-600 font-bold">{watchListCart ? watchListCart : 0}</span> */}
-            <span className="text-red-600 font-bold">{watchListCart}</span>
+            {/* <span className="text-red-600 font-bold">{watchListCart}</span> */}
           </div>
           <button
             className={`signin  ${isUser ? "hidden" : "block"}
@@ -180,3 +150,25 @@ const Header = () => {
 };
 
 export default Header;
+// const watchListCart = useMemo(() => {
+//   setTimeout(() => {
+//     var currentUseruid = auth.currentUser.uid;
+//     let data = text.slice();
+//     let getId = data.find((id) => (id = currentUseruid));
+//     let cart = getId.watchListId.length;
+//     return cart;
+//   }, 1000);
+// }, []);
+// console.log(watchListCart);
+
+// const [isUser, setIsUser] = useState(false);
+
+// useEffect(() => {
+//   auth.onAuthStateChanged((user) => {
+//     if (user) {
+//       setIsUser(true);
+//     } else {
+//       setIsUser(false);
+//     }
+//   });
+// }, [auth]);

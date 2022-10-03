@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { auth, app } from "../firebase/firebase";
 import UserInfo, { userData } from "../components/UserInfo";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase";
 const Register = () => {
   const navigate = useNavigate();
 

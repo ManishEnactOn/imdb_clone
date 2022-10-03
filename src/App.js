@@ -1,4 +1,5 @@
 import React from "react";
+import { auth } from "./firebase/firebase";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomeLayout from "./layouts/HomeLayout";
