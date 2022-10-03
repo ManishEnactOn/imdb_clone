@@ -1,10 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../context/context";
 const SingleMovie = () => {
-  const { auth } = useContext(AppContext);
-  console.log(auth.currentUser.uid);
   const navigate = useNavigate();
   const [singleMovie, setSingleMovie] = useState([]);
   const { id } = useParams();

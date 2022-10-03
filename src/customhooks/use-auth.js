@@ -1,12 +1,9 @@
-import { getDefaultNormalizer } from "@testing-library/react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
 
 const useAuth = () => {
   const [_user, setUser] = useState({});
   const [isUser, setIsUser] = useState(false);
-  // console.log("firebase: called", auth);
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -35,21 +32,3 @@ const useAuth = () => {
 };
 
 export default useAuth;
-// const [auth, setAuth] = useState();
-
-// useEffect(() => {
-//   setAuth(getAuth);
-//   authListener();
-//   return () => {};
-// }, []);
-// const authListener = useCallback(() => {
-//   onAuthStateChanged(auth, (user) => {
-//     if (user) {
-//       //   setUser(user);
-//       //   setIsUser(true);
-//     } else {
-//       //   setUser({});
-//       //   setIsUser(false);
-//     }
-//   });
-// }, [auth, onAuthStateChanged]);

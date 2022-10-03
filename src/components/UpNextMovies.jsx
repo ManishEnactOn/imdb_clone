@@ -10,7 +10,6 @@ const upComingMovie = `https://api.themoviedb.org/3/movie/upcoming?api_key=${pro
 const UpNextMovies = () => {
   const navigate = useNavigate();
   const { data, loading } = useFetchUrl(upComingMovie);
-  // console.log(data);
   return (
     <div className="content-container">
       <div className="grid grid-cols-12 gap-3 ">

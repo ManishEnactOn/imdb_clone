@@ -53,7 +53,7 @@ const Upcoming = () => {
   };
 
   return (
-    <div className="bg-primary">
+    <div className="bg-primary min-h-screen">
       <div className="content-container">
         <section>
           <CategoryTitle title="Watch New Movie & TV Trailers" />

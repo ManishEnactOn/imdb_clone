@@ -9,28 +9,35 @@ import { ReactComponent as PauseIcon } from "../assets/pausebutton.svg";
 import { ReactComponent as CheckIcon } from "../assets/check.svg";
 import { useRecoilState } from "recoil";
 import { watchListSelector } from "../atom";
+import { useNavigate } from "react-router-dom";
 
 const Movie = ({ data }) => {
-  const { _user } = useAuth();
+  const navigate = useNavigate();
+
+  const { _user, isUser } = useAuth();
   const [text, setText] = useRecoilState(watchListSelector);
   const [isSelect, setIsSelect] = useState(false);
   var exists;
 
   const addWatchList = (id) => {
-    exists = text.find((item) => item.uid === _user.uid);
-    if (exists) {
-      setText(
-        text.map((item) =>
-          item.uid === _user.uid
-            ? {
-                ...exists,
-                watchListId: exists.watchListId ? [...exists.watchListId, id] : [id],
-              }
-            : item
-        )
-      );
+    if (isUser) {
+      exists = text.find((item) => item.uid === _user.uid);
+      if (exists) {
+        setText(
+          text.map((item) =>
+            item.uid === _user.uid
+              ? {
+                  ...exists,
+                  watchListId: exists.watchListId ? [...exists.watchListId, id] : [id],
+                }
+              : item
+          )
+        );
+      } else {
+        setText((prev) => [...prev, { uid: _user.uid, watchListId: [id] }]);
+      }
     } else {
-      setText((prev) => [...prev, { uid: _user.uid, watchListId: [id] }]);
+      navigate("/Signin");
     }
   };
   const removeWatchList = (id) => {
@@ -48,7 +55,7 @@ const Movie = ({ data }) => {
       );
     }
   };
-  console.log(text);
+  // console.log(text);
 
   const getMovieId = (id) => {
     setIsSelect(!isSelect);

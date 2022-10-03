@@ -6,7 +6,7 @@ import TopRatedMovies from "../components/TopRatedMovies";
 import UpNextMovies from "../components/UpNextMovies";
 const Home = () => {
   return (
-    <div className="bg-primary">
+    <div className="bg-primary min-h-screen">
       <section>
         <UpNextMovies />
       </section>

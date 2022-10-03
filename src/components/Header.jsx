@@ -7,7 +7,6 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { BookmarkIcon } from "@heroicons/react/24/solid";
 import { TvIcon } from "@heroicons/react/24/solid";
 import { StarIcon } from "@heroicons/react/24/solid";
-import { ReactComponent as ImdbPrologo } from "../assets/imdb-pro-logo.svg";
 import { ReactComponent as MovieIcon } from "../assets/movies.svg";
 import { useNavigate } from "react-router-dom";
 import MenuCategory from "./MenuCategory";
@@ -18,10 +17,14 @@ import { watchListSelector } from "../atom";
 const Header = () => {
   const [text, setText] = useRecoilState(watchListSelector);
   const { isUser, _user, logout } = useAuth();
-  // console.log("isUser", isUser, "user", _user.uid);
+  console.log("isUser", isUser, "user", _user.uid);
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
-
+  var currentUserData;
+  if (isUser) {
+    currentUserData = text.find((item) => item.uid === _user.uid);
+    console.log("currentUserData", currentUserData);
+  }
   const userSignOut = () => {
     logout();
   };
@@ -121,8 +124,9 @@ const Header = () => {
           >
             <BookmarkIcon className="h-5 w-5 text-white" />
             <span className="text-white text-14 leading-6 font-medium ">Watchlist</span>
-            {/* <span className="text-red-600 font-bold">{watchListCart ? watchListCart : 0}</span> */}
-            {/* <span className="text-red-600 font-bold">{watchListCart}</span> */}
+            <span className={`${_user.uid ? "block" : "hidden"} text-red-600 font-bold`}>
+              {currentUserData && currentUserData.watchListId.length}
+            </span>
           </div>
           <button
             className={`signin  ${isUser ? "hidden" : "block"}

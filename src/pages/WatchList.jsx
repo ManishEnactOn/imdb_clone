@@ -82,7 +82,7 @@ const WatchList = () => {
   };
 
   return (
-    <div className="bg-gray-40 h-screen">
+    <div className="bg-gray-40 min-h-screen">
       <div div className="signIn-container bg-white">
         <div className="p-6">
           <h2 className="text-28 font-normal text-gray-55">Your Watchlist</h2>
@@ -94,7 +94,7 @@ const WatchList = () => {
 
         <div className="sortWatchList px-7 py-3 flex-between border-y-2 ">
           <div className="space-x-2 text-14 text-gray-55">
-            <span>0</span>
+            <span>{currentUserData.watchListId.length}</span>
             <span>Titles</span>
           </div>
 
@@ -110,8 +110,7 @@ const WatchList = () => {
           </div>
         </div>
 
-        {watchListData.length > 0 &&
-          watchListData.map((watchList) => <WatchlistCart key={watchList.id} data={watchList} />)}
+        {watchListData && watchListData.map((watchList) => <WatchlistCart key={watchList.id} data={watchList} />)}
       </div>
     </div>
   );
