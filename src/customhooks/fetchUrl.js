@@ -22,7 +22,7 @@ const useFetchUrl = (url1) => {
   //       setLoading(false);
   //     });
   // };
-
+  var url = url1;
   useEffect(() => {
     setLoading(true);
     fetch(url1)
@@ -32,7 +32,7 @@ const useFetchUrl = (url1) => {
           setData(data.results);
           setLoading(false);
           // null
-        }, 100);
+        }, 1500);
       })
       .catch((e) => {
         console.log({ e });
@@ -40,7 +40,7 @@ const useFetchUrl = (url1) => {
       });
   }, [url1]);
 
-  return { data, loading };
+  return { data, loading, url };
 };
 
 export default useFetchUrl;

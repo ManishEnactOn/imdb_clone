@@ -85,7 +85,7 @@ const Movie = ({ data }) => {
                 <StarIcon className="h-4 w-4 text-yellow-400" />
                 <span className="rating">{data.vote_average}</span>
               </div>
-              <h3 className="py-2">{data.title} </h3>
+              <h3 className="py-2 xl:h-10 h-16">{data.title} </h3>
               <div className="watchNowBtn w-full bg-gray-80 flex items-center justify-center rounded hover:bg-hover cursor-pointer">
                 <button className="text-[14px] text-blue-50 font-medium py-2">Watch now</button>
                 <WatchNow className="text-blue-50" />

@@ -4,15 +4,21 @@ import { ReactComponent as IMDBbIcon } from "../assets/IMDb_Logo_Square.svg";
 import { ReactComponent as GoogleIcon } from "../assets/google.svg";
 import Benifits from "../components/Benifits";
 import { useNavigate } from "react-router-dom";
-
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 const SignIn = () => {
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((res) => navigate("/"))
+      .catch((error) => console.log("error", error));
+  };
 
   const socialSignIn = (e) => {
-    // console.log(e.target.innerText);
     if (e.target.innerText.toLowerCase().includes("imdb")) {
       navigate("/ImdbSignin");
-    }
+    } else signInWithGoogle();
   };
 
   return (

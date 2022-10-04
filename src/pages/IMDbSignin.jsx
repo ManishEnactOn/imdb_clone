@@ -37,16 +37,24 @@ const IMDbSignin = () => {
       </div>
 
       <div className="px-4 py-4 border border-gray-50 rounded space-y-4">
-        <h1 className="text-28 font-normal">Sign in</h1>
-        <div className="space-y-4">
-          <UserInfo label="Email" type="email" setForm={setForm} />
-          <UserInfo label="Password" type="password" setForm={setForm} />
-        </div>
-        <div>
-          <button className="py-2 bg-yellow-150 w-full rounded text-14" onClick={getUserSignIn}>
-            Sign in
-          </button>
-        </div>
+        <form
+          className="space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <h1 className="text-28 font-normal">Sign in</h1>
+          <div className="space-y-4">
+            <UserInfo label="Email" type="email" setForm={setForm} />
+            <UserInfo label="Password" type="password" setForm={setForm} />
+          </div>
+          <div>
+            <button className="py-2 bg-yellow-150 w-full rounded text-14" onClick={getUserSignIn}>
+              Sign in
+            </button>
+          </div>
+        </form>
+
         <button
           className="w-full bg-gray-10 py-1 rounded border border-primary text-14"
           onClick={() => {

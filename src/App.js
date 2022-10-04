@@ -10,6 +10,7 @@ import SignIn from "./pages/SignIn";
 import SingleMovie from "./pages/SingleMovie";
 import Upcoming from "./pages/Upcoming";
 import WatchList from "./pages/WatchList";
+import Demo from "./pages/Demo";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
             </HomeLayout>
           }
         />
+        <Route path="demo" element={<Demo />} />
         <Route path="ImdbSignin" element={<IMDbSignin />} />
         <Route path="register" element={<Register />} />
         <Route path="*" element={<div>page not found</div>} />

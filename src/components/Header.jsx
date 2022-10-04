@@ -23,7 +23,7 @@ const Header = () => {
   var currentUserData;
   if (isUser) {
     currentUserData = text.find((item) => item.uid === _user.uid);
-    console.log("currentUserData", currentUserData);
+    // console.log("currentUserData", currentUserData);
   }
   const userSignOut = () => {
     logout();
@@ -82,7 +82,7 @@ const Header = () => {
       </div>
       {/* *********************** */}
       <div className="py-3 bg-secondary">
-        <div className="content-container flex items-center space-x-1">
+        <div className="content-container flex items-center  space-x-1">
           <div
             className="imdb-logo cursor-pointer"
             onClick={() => {
@@ -92,7 +92,7 @@ const Header = () => {
             <img src="/images/imdb-logo.svg" className="w-16 h-8" alt="imdb-logo" />
           </div>
           <div
-            className="menu flex-center px-4 cursor-pointer py-1 hover:bg-hover rounded"
+            className="menu flex-center px-4 cursor-pointer py-1 hover:bg-hover rounded "
             onClick={() => {
               setToggle(!toggle);
             }}
@@ -100,7 +100,7 @@ const Header = () => {
             <Bars3Icon className="h-6 w-6 text-white" />
             <span className="text-14 text-white font-medium ">Menu</span>
           </div>
-          <div className="searchBar w-[720px] bg-white rounded-md flex">
+          <div className="searchBar xl:w-[720px] lg:w-[464px] w-[680px] bg-white rounded-md flex">
             <div className="dropdown-menu flex items-center w-14 border-r border-r-gray-50 space-x-2 px-2 py-1  ">
               <span className="text-black text-14 leading-6  font-medium ">All</span>
               <ChevronDownIcon className="h-4 w-4 text-black" />
@@ -117,9 +117,10 @@ const Header = () => {
             </div>
           </div>
           <div
-            className="watchList flex cursor-pointer px-4 py-1 hover:bg-hover rounded space-x-1"
+            className="watchList lg:flex hidden cursor-pointer px-4 py-1 hover:bg-hover rounded space-x-1"
             onClick={() => {
-              navigate("/watchlist");
+              if (isUser) navigate("/watchlist");
+              else navigate("/signIn");
             }}
           >
             <BookmarkIcon className="h-5 w-5 text-white" />
@@ -130,7 +131,7 @@ const Header = () => {
           </div>
           <button
             className={`signin  ${isUser ? "hidden" : "block"}
-             text-white text-14 leading-6 font-medium px-4 py-1 hover:bg-hover rounded`}
+             text-white text-14 leading-6 font-medium px-3 py-1 hover:bg-hover rounded`}
             onClick={() => {
               navigate("/signIn");
             }}
@@ -139,7 +140,7 @@ const Header = () => {
           </button>
           <button
             className={` signin  ${isUser ? "block" : "hidden"}
-              text-white text-14 leading-6 font-medium px-4 py-1 hover:bg-hover rounded`}
+              text-white text-14 leading-6 font-medium px-3 py-1 hover:bg-hover rounded`}
             onClick={userSignOut}
           >
             Sign out
@@ -154,25 +155,3 @@ const Header = () => {
 };
 
 export default Header;
-// const watchListCart = useMemo(() => {
-//   setTimeout(() => {
-//     var currentUseruid = auth.currentUser.uid;
-//     let data = text.slice();
-//     let getId = data.find((id) => (id = currentUseruid));
-//     let cart = getId.watchListId.length;
-//     return cart;
-//   }, 1000);
-// }, []);
-// console.log(watchListCart);
-
-// const [isUser, setIsUser] = useState(false);
-
-// useEffect(() => {
-//   auth.onAuthStateChanged((user) => {
-//     if (user) {
-//       setIsUser(true);
-//     } else {
-//       setIsUser(false);
-//     }
-//   });
-// }, [auth]);

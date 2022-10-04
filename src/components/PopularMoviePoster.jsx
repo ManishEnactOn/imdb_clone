@@ -10,11 +10,17 @@ const PopularMoviePoster = ({ movieData }) => {
       <Swiper navigation={true} slidesPerView={1} modules={[Navigation]} className="mySwiper h-full">
         {movieData.map((data) => (
           <SwiperSlide key={data.id}>
-            <img
-              src={`${process.env.REACT_APP_IMG_PATH}${data.poster_path}`}
-              alt="poster_path"
-              className="h-full w-full object-cover"
-            />
+            <div className="h-full relative">
+              <div className="text-white bg-primary/70 absolute px-4 bottom-0">
+                <h1 className="text-32 font-bold ">{data.title}</h1>
+                <h2 className="text-16">{data.overview}</h2>
+              </div>
+              <img
+                src={`${process.env.REACT_APP_IMG_PATH}${data.poster_path}`}
+                alt="poster_path"
+                className="h-full w-full object-cover"
+              />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
@@ -23,42 +29,3 @@ const PopularMoviePoster = ({ movieData }) => {
 };
 
 export default PopularMoviePoster;
-{
-  // const [swiperRef, setSwiperRef] = useState();
-
-  // const handleLeftClick = useCallback(() => {
-  //   if (!swiperRef) return;
-  //   swiperRef.slidePrev();
-  // }, [swiperRef]);
-
-  // const handleRightClick = useCallback(() => {
-  //   if (!swiperRef) return;
-  //   swiperRef.slideNext();
-  // }, [swiperRef]);
-  {
-    /* <div className="relative">
-        <button onClick={handleLeftClick} className="absolute z-50 translate-y-1/2 top1/2 ">
-          left
-        </button>
-      </div>
-      <Swiper slidesPerView={1} onSwiper={setSwiperRef} className="mySwiper h-full">
-        {movieData.map((data) => (
-          <SwiperSlide key={data.id}>
-            <img
-              src={`${process.env.REACT_APP_IMG_PATH}${data.poster_path}`}
-              alt="poster_path"
-              className="h-full w-full object-cover"
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <div>
-        <button onClick={handleRightClick} className="  ">
-          right
-        </button>
-      </div> */
-  }
-}
-{
-  /* ********************************************************************* */
-}

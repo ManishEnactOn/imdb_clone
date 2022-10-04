@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .content-container {
-  @apply max-w-7xl px-3 mx-auto;
+  @apply xl:max-w-7xl lg:max-w-5xl px-3 mx-auto;
 }
 .signIn-container {
   @apply max-w-5xl px-2 mx-auto;

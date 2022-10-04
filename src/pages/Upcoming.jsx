@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CategoryTitle from "../components/CategoryTitle";
 import Movie from "../components/Movie";
 import Multiselect from "multiselect-react-dropdown";
+import MovieSkeletonLoader from "../components/MovieSkeletonLoader";
 const upComingMovieApi = `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
 var filterMovieData;
 const Upcoming = () => {
@@ -24,7 +25,6 @@ const Upcoming = () => {
   const [upComingMovie, setupComingMovie] = useState([]);
   const [movieData, setMovieData] = useState([]);
   const [loading, SetLoading] = useState(false);
-  var myMovie;
   useEffect(() => {
     SetLoading(true);
     fetch(upComingMovieApi)
@@ -34,7 +34,7 @@ const Upcoming = () => {
           setupComingMovie(upcoming.results);
           setMovieData(upcoming.results);
           SetLoading(false);
-        }, 1000)
+        }, 1500)
       );
   }, []);
 
@@ -68,8 +68,14 @@ const Upcoming = () => {
           </div>
           {loading ? (
             <>
-              <div className="flex-center w-full">
+              {/* <div className="flex-center w-full">
                 <h1 className="text-white text-32"> Loading...</h1>
+              </div> */}
+
+              <div className="grid grid-cols-5 gap-4 py-2">
+                {Array.from(Array(10).keys()).map((number) => (
+                  <MovieSkeletonLoader />
+                ))}
               </div>
             </>
           ) : (

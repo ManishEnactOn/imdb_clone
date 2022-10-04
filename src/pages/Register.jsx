@@ -10,7 +10,7 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    console.log({ form });
+    console.log("form", { form });
     return () => {};
   }, [form]);
 
@@ -23,7 +23,7 @@ const Register = () => {
       form.Password === form["Re-enter Password"]
     ) {
       createUserWithEmailAndPassword(auth, form.Email, form.Password)
-        .then((res) => console.log("firebase:", res))
+        .then((res) => setForm((form.UserName = "")))
         .catch((error) => {
           setErrorMessage(error.code);
           setTimeout(() => {
@@ -31,6 +31,7 @@ const Register = () => {
           }, 2000);
         });
     }
+
     if (form.Password !== form["Re-enter Password"]) {
       setErrorMessage("Password is not same");
       setTimeout(() => {
@@ -44,37 +45,36 @@ const Register = () => {
       <div className="imdb-logo cursor-pointer flex justify-center my-4">
         <img src="./images/imdb-logo.svg" className="w-28 h-14" alt="imdb-logo" />
       </div>
+      <form>
+        <div className="px-4 py-4 border border-gray-50 rounded space-y-4">
+          <h1 className="text-28 font-normal">Create account</h1>
 
-      <div className="px-4 py-4 border border-gray-50 rounded space-y-4">
-        <h1 className="text-28 font-normal">Create account</h1>
-        <div className="space-y-4">
-          {/* <form  /> */}
-          <UserInfo label="UserName" type="text" setForm={setForm} />
-          <UserInfo label="Email" type="email" setForm={setForm} />
-          <UserInfo label="Password" type="password" setForm={setForm} />
-          <UserInfo label="Re-enter Password" type="password" setForm={setForm} />
+          <div action="submit" className="flex flex-col space-y-4">
+            <UserInfo label="UserName" type="text" setForm={setForm} />
+            <UserInfo label="Email" type="email" setForm={setForm} />
+            <UserInfo label="Password" type="password" setForm={setForm} />
+            <UserInfo label="Re-enter Password" type="password" setForm={setForm} />
+          </div>
+
+          <div>
+            <button className="py-2 bg-yellow-150 w-full rounded text-14" onClick={getUserData}>
+              Create your IMDb account
+            </button>
+          </div>
+          <h5 className="text-14">
+            Already have an account?
+            <button
+              className="text-blue-50  hover:border-b-2 border-b-blue-50"
+              onClick={() => {
+                navigate("/Signin");
+              }}
+            >
+              Sign in
+            </button>
+          </h5>
+          <h6 className="errormsg bg-red-100 text-red-500 text-center rounded font-medium text-14">{errorMessage}</h6>
         </div>
-        <div>
-          {/* <input type="submit" className="py-2 bg-yellow-150 w-full rounded text-14" onClick={getUserData}>
-            Create your IMDb account
-          </input> */}
-          <button className="py-2 bg-yellow-150 w-full rounded text-14" onClick={getUserData}>
-            Create your IMDb account
-          </button>
-        </div>
-        <h5 className="text-14">
-          Already have an account?
-          <button
-            className="text-blue-50  hover:border-b-2 border-b-blue-50"
-            onClick={() => {
-              navigate("/Signin");
-            }}
-          >
-            Sign in
-          </button>
-        </h5>
-        <h6 className="errormsg bg-red-100 text-red-500 text-center rounded font-medium text-14">{errorMessage}</h6>
-      </div>
+      </form>
     </div>
   );
 };
