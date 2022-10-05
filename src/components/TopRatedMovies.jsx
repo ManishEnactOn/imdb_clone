@@ -13,7 +13,27 @@ const TopRatedMovies = () => {
 
   return (
     <div className="content-container">
-      <Swiper slidesPerView={5} spaceBetween={35} navigation={true} modules={[Navigation]} className="mySwiper">
+      <Swiper
+        spaceBetween={35}
+        navigation={true}
+        modules={[Navigation]}
+        breakpoints={{
+          520: {
+            // when window width is >= 520px
+            slidesPerView: 2,
+          },
+          640: {
+            slidesPerView: 3,
+          },
+          768: {
+            slidesPerView: 4,
+          },
+          1024: {
+            slidesPerView: 5,
+          },
+        }}
+        className="mySwiper"
+      >
         {loading ? (
           <>
             <div className="grid grid-cols-5 gap-4 py-2">

@@ -82,27 +82,29 @@ const Header = () => {
       </div>
       {/* *********************** */}
       <div className="py-3 bg-secondary">
-        <div className="content-container flex items-center  space-x-1">
-          <div
-            className="imdb-logo cursor-pointer"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            <img src="/images/imdb-logo.svg" className="w-16 h-8" alt="imdb-logo" />
+        <div className="content-container flex items-center justify-between space-x-3">
+          <div className="flex items-center">
+            <div
+              className="imdb-logo cursor-pointer lg:order-1 order-2"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              <img src="/images/imdb-logo.svg" className="w-16 h-8" alt="imdb-logo" />
+            </div>
+            <div
+              className="menu flex-center px-4 cursor-pointer py-1 hover:bg-hover rounded lg:order-2 order-1"
+              onClick={() => {
+                setToggle(!toggle);
+              }}
+            >
+              <Bars3Icon className="h-6 w-6 text-white" />
+              <span className="text-14 text-white font-medium lg:block hidden">Menu</span>
+            </div>
           </div>
-          <div
-            className="menu flex-center px-4 cursor-pointer py-1 hover:bg-hover rounded "
-            onClick={() => {
-              setToggle(!toggle);
-            }}
-          >
-            <Bars3Icon className="h-6 w-6 text-white" />
-            <span className="text-14 text-white font-medium ">Menu</span>
-          </div>
-          <div className="searchBar xl:w-[720px] lg:w-[464px] w-[680px] bg-white rounded-md flex">
+          <div className="searchBar flex-1 bg-white rounded-md sm:flex hidden">
             <div className="dropdown-menu flex items-center w-14 border-r border-r-gray-50 space-x-2 px-2 py-1  ">
-              <span className="text-black text-14 leading-6  font-medium ">All</span>
+              <span className="text-black text-14 leading-6  font-medium  ">All</span>
               <ChevronDownIcon className="h-4 w-4 text-black" />
             </div>
             <div className="search flex-between flex-1 px-3">
@@ -116,38 +118,47 @@ const Header = () => {
               <MagnifyingGlassIcon className="h-5 w-5 text-slate-700" />
             </div>
           </div>
-          <div
-            className="watchList lg:flex hidden cursor-pointer px-4 py-1 hover:bg-hover rounded space-x-1"
-            onClick={() => {
-              if (isUser) navigate("/watchlist");
-              else navigate("/signIn");
-            }}
-          >
-            <BookmarkIcon className="h-5 w-5 text-white" />
-            <span className="text-white text-14 leading-6 font-medium ">Watchlist</span>
-            <span className={`${_user.uid ? "block" : "hidden"} text-red-600 font-bold`}>
-              {currentUserData && currentUserData.watchListId.length}
-            </span>
+          <div className="sm:hidden flex flex-auto justify-end">
+            <MagnifyingGlassIcon className="h-5 w-5 text-white" />
           </div>
-          <button
-            className={`signin  ${isUser ? "hidden" : "block"}
+          <div className="flex items-center">
+            <div
+              className="watchList lg:flex hidden cursor-pointer px-4 py-1 hover:bg-hover rounded space-x-1"
+              onClick={() => {
+                if (isUser) navigate("/watchlist");
+                else navigate("/signIn");
+              }}
+            >
+              <BookmarkIcon className="h-5 w-5 text-white" />
+              <span className="text-white text-14 leading-6 font-medium ">Watchlist</span>
+              <span
+                className={`${
+                  _user.uid && currentUserData.watchListId.length > 0 ? "block" : "hidden"
+                } h-5 w-5 text-center rounded-full bg-yellow-150 text-black font-bold`}
+              >
+                {currentUserData && currentUserData.watchListId.length}
+              </span>
+            </div>
+            <button
+              className={`signin  ${isUser ? "hidden" : "block"}
              text-white text-14 leading-6 font-medium px-3 py-1 hover:bg-hover rounded`}
-            onClick={() => {
-              navigate("/signIn");
-            }}
-          >
-            Sign In
-          </button>
-          <button
-            className={` signin  ${isUser ? "block" : "hidden"}
+              onClick={() => {
+                navigate("/signIn");
+              }}
+            >
+              Sign In
+            </button>
+            <button
+              className={` signin  ${isUser ? "block" : "hidden"}
               text-white text-14 leading-6 font-medium px-3 py-1 hover:bg-hover rounded`}
-            onClick={userSignOut}
-          >
-            Sign out
-          </button>
-          <button className="language text-white text-14 leading-6 font-medium px-4 py-1 hover:bg-hover rounded">
-            EN
-          </button>
+              onClick={userSignOut}
+            >
+              Sign out
+            </button>
+            <button className="language text-white text-14 leading-6 font-medium px-4 py-1 hover:bg-hover rounded">
+              EN
+            </button>
+          </div>
         </div>
       </div>
     </div>

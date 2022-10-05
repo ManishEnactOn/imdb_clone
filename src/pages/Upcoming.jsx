@@ -57,7 +57,7 @@ const Upcoming = () => {
       <div className="content-container">
         <section>
           <CategoryTitle title="Watch New Movie & TV Trailers" />
-          <div className="multiselect flex justify-end w-full -mt-10">
+          <div className="multiselect flex md:justify-end w-full md:-mt-10 md:px-0 px-3">
             <Multiselect
               options={state.options} // Options to display in the dropdown
               selectedValues={state.selectedValue} // Preselected value to persist in dropdown
@@ -72,7 +72,7 @@ const Upcoming = () => {
                 <h1 className="text-white text-32"> Loading...</h1>
               </div> */}
 
-              <div className="grid grid-cols-5 gap-4 py-2">
+              <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-2 gap-4 py-2">
                 {Array.from(Array(10).keys()).map((number) => (
                   <MovieSkeletonLoader />
                 ))}
@@ -80,7 +80,7 @@ const Upcoming = () => {
             </>
           ) : (
             <>
-              <div className="grid grid-cols-5 gap-4 py-2">
+              <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-2 gap-4 py-2">
                 {upComingMovie.map((data) => (
                   <Movie data={data} key={data.id} />
                 ))}

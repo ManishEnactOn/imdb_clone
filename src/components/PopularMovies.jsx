@@ -12,10 +12,30 @@ const PopularMovies = () => {
   const { data, loading } = useFetchUrl(PopularMovieApi);
   return (
     <div className="content-container relative">
-      <Swiper slidesPerView={5} spaceBetween={35} navigation={true} modules={[Navigation]} className="mySwiper">
+      <Swiper
+        spaceBetween={20}
+        navigation={true}
+        modules={[Navigation]}
+        breakpoints={{
+          520: {
+            // when window width is >= 520px
+            slidesPerView: 2,
+          },
+          640: {
+            slidesPerView: 3,
+          },
+          768: {
+            slidesPerView: 4,
+          },
+          1024: {
+            slidesPerView: 5,
+          },
+        }}
+        className="mySwiper"
+      >
         {loading ? (
           <>
-            <div className="grid grid-cols-5 gap-4 py-2">
+            <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 py-2">
               {Array.from(Array(5).keys()).map((number) => (
                 <MovieSkeletonLoader />
               ))}

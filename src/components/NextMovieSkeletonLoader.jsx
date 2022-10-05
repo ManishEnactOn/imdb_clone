@@ -3,10 +3,10 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const NextMovieSkeletonLoader = () => {
   return (
-    <SkeletonTheme baseColor="#ffffff" highlightColor="#e6ffff">
+    <SkeletonTheme baseColor="#121212" highlightColor="#333333">
       <div>
         <div className="grid grid-cols-8 gap-3 cursor-pointer">
-          <div className="col-span-2 bg-lime-200 h-32">
+          <div className="col-span-2 h-32">
             <Skeleton count={1} className="h-full" />
           </div>
           <div className="col-span-6">

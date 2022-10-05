@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 import WatchlistCart from "../components/WatchlistCart";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { watchListSelector } from "../atom";
 import useAuth from "../customhooks/use-auth";
+import { Link } from "react-router-dom";
 // const watchListUrl = `https://api.themoviedb.org/3/movie/634649?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
 
 const WatchList = () => {
   const [watchListData, setWatchListData] = useState([]);
   const [defaultData, setDefaultData] = useState([]);
   const [text, setText] = useRecoilState(watchListSelector);
+  // const text = useRecoilValue(watchListSelector);
+  // const setText=useSetRecoilState(watchListSelector);
   const { _user } = useAuth();
   var currentData;
   let currentUserData = text.find((item) => item.uid === _user.uid);
@@ -110,7 +113,25 @@ const WatchList = () => {
           </div>
         </div>
 
-        {watchListData && watchListData.map((watchList) => <WatchlistCart key={watchList.id} data={watchList} />)}
+        {watchListData.length > 0 ? (
+          <>
+            {watchListData.map((watchList) => (
+              <WatchlistCart key={watchList.id} data={watchList} />
+            ))}
+          </>
+        ) : (
+          <>
+            <div className="min-h-[400px] flex flex-col justify-center items-center ">
+              <h1 className="text-24 text-gray-50 font-bold">Your WatchList is Empty</h1>
+              <p className="text-gray-50">
+                Add movies and shows to your Watchlist to keep track of what you want to watch.
+              </p>
+              <Link to="/" className="text-gray-70">
+                Popular Movies
+              </Link>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

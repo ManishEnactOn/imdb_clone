@@ -31,8 +31,8 @@ const SingleMovie = () => {
           </>
         ) : (
           <>
-            <div className="grid grid-cols-12 gap-2 ">
-              <div className=" col-span-8 bg-primary h-[547px]">
+            <div className="md:grid flex flex-col grid-cols-12 gap-2 ">
+              <div className=" col-span-8  bg-primary h-[547px]">
                 {
                   <img
                     src={`${process.env.REACT_APP_IMG_PATH}${singleMovie.poster_path}`}
@@ -42,7 +42,7 @@ const SingleMovie = () => {
                 }
               </div>
               <div className="col-span-4 bg-secondary p-4 ">
-                <div className="grid grid-cols-8 gap-3 cursor-pointer">
+                <div className="grid grid-cols-8  gap-3 cursor-pointer">
                   <div className="col-span-2 bg-lime-200 h-32">
                     <img
                       src={`${process.env.REACT_APP_IMG_PATH}${singleMovie.backdrop_path}`}

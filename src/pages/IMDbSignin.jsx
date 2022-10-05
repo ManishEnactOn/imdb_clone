@@ -36,7 +36,7 @@ const IMDbSignin = () => {
         <img src="./images/imdb-logo.svg" className="w-28 h-14" alt="imdb-logo" />
       </div>
 
-      <div className="px-4 py-4 border border-gray-50 rounded space-y-4">
+      <div className="px-4 py-4 border border-gray-50 rounded space-y-4 m-1">
         <form
           className="space-y-4"
           onSubmit={(e) => {

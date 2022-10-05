@@ -18,7 +18,7 @@ const UpNextMovies = () => {
         <div className="lg:col-span-8 col-span-12 bg-primary h-[547px]">
           {loading ? (
             <>
-              <SkeletonTheme baseColor="#ffffff" highlightColor="#e6ffff">
+              <SkeletonTheme baseColor="#121212" highlightColor="#333333">
                 <Skeleton className="h-full" />
               </SkeletonTheme>
             </>

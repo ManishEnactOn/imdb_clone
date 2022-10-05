@@ -7,7 +7,7 @@ const NextMovie = ({ movie }) => {
     <div>
       <NavLink to={`/singlemovie/${movie.id}`}>
         <div className="grid grid-cols-8 gap-3 cursor-pointer">
-          <div className="col-span-2 bg-lime-200 h-32">
+          <div className="col-span-2 h-32">
             <img
               src={`${process.env.REACT_APP_IMG_PATH}${movie.backdrop_path}`}
               alt="movie poster"

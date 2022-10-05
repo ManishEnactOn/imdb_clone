@@ -86,7 +86,10 @@ const WatchlistCart = ({ data }) => {
               <h2 className="title text-20 text-blue-50 font-semibold">{data.title}</h2>
               <div className="space-x-2 text-gray-55">
                 <span className="releaseDate text-14">{data.release_date}</span>
-                <span className="genre text-14 ">Action</span>
+
+                {data.genres.map((genre) => (
+                  <span className="genre text-14 ">{genre.name}</span>
+                ))}
               </div>
             </div>
 
@@ -94,7 +97,7 @@ const WatchlistCart = ({ data }) => {
               <StarIcon className="h-4 text-yellow-150" />
               <span className="text-14">{data.vote_average}</span>
             </div>
-            <p className="text-16 ">{data.overview}</p>
+            <p className="text-16 lg:block hidden ">{data.overview}</p>
           </div>
         </div>
       </div>
