@@ -37,8 +37,8 @@ const TopRatedMovies = () => {
         {loading ? (
           <>
             <div className="grid grid-cols-5 gap-4 py-2">
-              {Array.from(Array(5).keys()).map(() => (
-                <MovieSkeletonLoader />
+              {Array.from(Array(5).keys()).map((number) => (
+                <MovieSkeletonLoader key={number} />
               ))}
             </div>
           </>

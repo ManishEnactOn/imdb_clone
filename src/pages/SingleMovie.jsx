@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { ReactComponent as ArrowRightIcon } from "../assets/arrowright.svg";
 
-import "react-loading-skeleton/dist/skeleton.css";
 const SingleMovie = () => {
   const { id } = useParams();
   const singleMovieApi = `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
@@ -23,7 +22,7 @@ const SingleMovie = () => {
   }, []);
 
   return (
-    <section className="bg-primary min-h-screen">
+    <section className="bg-primary ">
       <div className="content-container">
         {loading ? (
           <>
@@ -69,14 +68,12 @@ const SingleMovie = () => {
         )}
 
         <div className="flex-center">
-          <button
-            className="text-black bg-white px-6 py-2 rounded mt-5"
-            onClick={() => {
-              navigate("/");
-            }}
+          <a
+            href={`https://www.imdb.com/title/${singleMovie.imdb_id}`}
+            className="text-black bg-yellow-150 font-bold px-6 py-2 flex-center  text-32 rounded mt-5 "
           >
-            Back
-          </button>
+            IMDb <ArrowRightIcon className="text-black h-6 w-6" />
+          </a>
         </div>
       </div>
     </section>

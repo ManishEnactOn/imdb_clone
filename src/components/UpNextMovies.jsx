@@ -36,7 +36,7 @@ const UpNextMovies = () => {
 
               <>
                 {Array.from(Array(3).keys()).map((number) => (
-                  <NextMovieSkeletonLoader />
+                  <NextMovieSkeletonLoader key={number} />
                 ))}
               </>
             ) : (

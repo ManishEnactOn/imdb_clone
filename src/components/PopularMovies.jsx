@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Movie from "./Movie";
 import "swiper/css";
@@ -10,6 +10,17 @@ import useFetchUrl from "../customhooks/fetchUrl";
 const PopularMovieApi = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
 const PopularMovies = () => {
   const { data, loading } = useFetchUrl(PopularMovieApi);
+
+  // const _data = useMemo(() => {
+  //   const { data, loading } = useFetchUrl(PopularMovieApi);
+  //   return data;
+  // });
+  // console.log(_data);
+
+  useEffect(() => {
+    console.log("called");
+  }, []);
+
   return (
     <div className="content-container relative">
       <Swiper
@@ -37,7 +48,7 @@ const PopularMovies = () => {
           <>
             <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 py-2">
               {Array.from(Array(5).keys()).map((number) => (
-                <MovieSkeletonLoader />
+                <MovieSkeletonLoader key={number} />
               ))}
             </div>
           </>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 import WatchlistCart from "../components/WatchlistCart";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { watchListSelector } from "../atom";
 import useAuth from "../customhooks/use-auth";
 import { Link } from "react-router-dom";
@@ -51,10 +51,11 @@ const WatchList = () => {
     currentData = watchListData.slice();
     setWatchListData(currentData.sort((a, b) => a.popularity - b.popularity));
   };
+
   const sortByReleaseDate = () => {
     currentData = watchListData.slice();
     setWatchListData(
-      currentData.sort((a, b) => a.release_date.split("-")[0].localeCompare(b.release_date.split("-")[0]))
+      currentData.sort((a, b) => new Date(a.release_date).getTime() - new Date(b.release_date).getTime())
     );
   };
 

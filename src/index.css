@@ -17,7 +17,7 @@
   @apply flex justify-between items-center;
 }
 section {
-  @apply py-2;
+  @apply pt-2 pb-14;
 }
 body {
   @apply font-body;

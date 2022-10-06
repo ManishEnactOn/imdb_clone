@@ -10,8 +10,8 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    console.log("form", { form });
-    return () => {};
+    console.log("form", form);
+    // return () => {};
   }, [form]);
 
   const getUserData = () => {
@@ -23,7 +23,7 @@ const Register = () => {
       form.Password === form["Re-enter Password"]
     ) {
       createUserWithEmailAndPassword(auth, form.Email, form.Password)
-        .then((res) => setForm((form.UserName = "")))
+        .then((res) => setForm({ UserName: "" }))
         .catch((error) => {
           setErrorMessage(error.code);
           setTimeout(() => {
@@ -45,7 +45,11 @@ const Register = () => {
       <div className="imdb-logo cursor-pointer flex justify-center my-4">
         <img src="./images/imdb-logo.svg" className="w-28 h-14" alt="imdb-logo" />
       </div>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <div className="px-4 py-4 border border-gray-50 rounded space-y-4 m-1">
           <h1 className="text-28 font-normal">Create account</h1>
 

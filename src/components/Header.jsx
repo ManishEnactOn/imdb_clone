@@ -30,9 +30,11 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <header>
       {/* ******* Menu Section ********* */}
-      <div className={`absolute z-[99] bg-primary h-full w-full text-white ${toggle ? "block" : "hidden"}`}>
+      <div
+        className={`fixed z-[99] bg-primary h-screen overflow-y-auto w-full text-white ${toggle ? "block" : "hidden"}`}
+      >
         <div className="signIn-container">
           <div className="flex-between py-8">
             <div className="imdb-logo cursor-pointer rounded overflow-hidden">
@@ -49,7 +51,7 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-10">
+          <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:max-w-full max-w-[300px] sm:mx-none mx-auto justify-center gap-2">
             <div>
               <MenuCategory icon={<MovieIcon className="text-yellow-150" />} title="Movies" />
               <div className=" flex flex-col space-y-3 pl-9 pt-4">
@@ -83,7 +85,7 @@ const Header = () => {
       {/* *********************** */}
       <div className="py-3 bg-secondary">
         <div className="content-container flex items-center justify-between space-x-3">
-          <div className="flex items-center">
+          <div className="flex items-center space-x-2">
             <div
               className="imdb-logo cursor-pointer lg:order-1 order-2"
               onClick={() => {
@@ -132,11 +134,11 @@ const Header = () => {
               <BookmarkIcon className="h-5 w-5 text-white" />
               <span className="text-white text-14 leading-6 font-medium ">Watchlist</span>
               <span
-                className={`${
-                  _user.uid && currentUserData.watchListId.length > 0 ? "block" : "hidden"
-                } h-5 w-5 text-center rounded-full bg-yellow-150 text-black font-bold`}
+                className={` ${
+                  _user.uid && currentUserData?.watchListId.length > 0 ? "block" : "hidden"
+                }  h-5 w-5 text-center rounded-full bg-yellow-150 text-black text-14 font-bold`}
               >
-                {currentUserData && currentUserData.watchListId.length}
+                {currentUserData?.watchListId ? currentUserData.watchListId.length : 0}
               </span>
             </div>
             <button
@@ -161,7 +163,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
