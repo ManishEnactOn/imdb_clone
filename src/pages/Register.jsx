@@ -5,14 +5,20 @@ import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 const Register = () => {
   const navigate = useNavigate();
-
-  const [form, setForm] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
-
-  useEffect(() => {
-    console.log("form", form);
-    // return () => {};
-  }, [form]);
+  const [form, setForm] = useState({
+    UserName: "",
+    Email: "",
+    Password: "",
+    "Re-enter Password": "",
+  });
+  var name, value;
+  const setValue = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    console.log(form);
+  };
 
   const getUserData = () => {
     if (
@@ -23,7 +29,7 @@ const Register = () => {
       form.Password === form["Re-enter Password"]
     ) {
       createUserWithEmailAndPassword(auth, form.Email, form.Password)
-        .then((res) => setForm({ UserName: "" }))
+        .then((res) => setForm((form.UserName = "")))
         .catch((error) => {
           setErrorMessage(error.code);
           setTimeout(() => {
@@ -54,12 +60,63 @@ const Register = () => {
           <h1 className="text-28 font-normal">Create account</h1>
 
           <div action="submit" className="flex flex-col space-y-4">
-            <UserInfo label="UserName" type="text" setForm={setForm} />
-            <UserInfo label="Email" type="email" setForm={setForm} />
-            <UserInfo label="Password" type="password" setForm={setForm} />
-            <UserInfo label="Re-enter Password" type="password" setForm={setForm} />
+            <div className="flex flex-col">
+              <label htmlFor="username" className="text-14 font-semibold">
+                UserName
+              </label>
+              <input
+                value={value}
+                name="UserName"
+                type="text"
+                id="username"
+                onChange={setValue}
+                className="outline-none border border-gray-50 placeholder:text-14 px-2 py-1 rounded"
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="email" className="text-14 font-semibold">
+                Email
+              </label>
+              <input
+                value={value}
+                name="Email"
+                type="email"
+                id="email"
+                onChange={setValue}
+                className="outline-none border border-gray-50 placeholder:text-14 px-2 py-1 rounded"
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="password" className="text-14 font-semibold">
+                Password
+              </label>
+              <input
+                value={value}
+                name="Password"
+                type="password"
+                id="password"
+                onChange={setValue}
+                className="outline-none border border-gray-50 placeholder:text-14 px-2 py-1 rounded"
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="Re-enter password" className="text-14 font-semibold">
+                Re-enter Password
+              </label>
+              <input
+                value={value}
+                name="Re-enter Password"
+                type="password"
+                id="Re-enter password"
+                onChange={setValue}
+                className="outline-none border border-gray-50 placeholder:text-14 px-2 py-1 rounded"
+                required
+              />
+            </div>
           </div>
-
           <div>
             <button className="py-2 bg-yellow-150 w-full rounded text-14" onClick={getUserData}>
               Create your IMDb account
@@ -84,3 +141,13 @@ const Register = () => {
 };
 
 export default Register;
+{
+  /* <UserInfo label="UserName" type="text" setForm={setForm} />
+            <UserInfo label="Email" type="email" setForm={setForm} />
+            <UserInfo label="Password" type="password" setForm={setForm} />
+            <UserInfo label="Re-enter Password" type="password" setForm={setForm} /> */
+}
+// useEffect(() => {
+//   console.log("form", form);
+//   // return () => {};
+// }, [form]);
