@@ -6,13 +6,18 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 
 const IMDbSignin = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+  const [form, setForm] = useState({
+    Email: "",
+    Password: "",
+  });
 
-  useEffect(() => {
-    console.log({ form });
-    return () => {};
-  }, [form]);
+  var name, value;
+  const setValue = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
 
   const getUserSignIn = () => {
     if (form.Email && form.Password) {
@@ -45,9 +50,36 @@ const IMDbSignin = () => {
         >
           <h1 className="text-28 font-normal">Sign in</h1>
           <div className="space-y-4">
-            <UserInfo label="Email" type="email" setForm={setForm} />
-            <UserInfo label="Password" type="password" setForm={setForm} />
+            <div className="flex flex-col">
+              <label htmlFor="email" className="text-14 font-semibold">
+                Email
+              </label>
+              <input
+                value={form.Email}
+                name="Email"
+                type="email"
+                id="email"
+                onChange={setValue}
+                className="outline-none border border-gray-50 placeholder:text-14 px-2 py-1 rounded"
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="password" className="text-14 font-semibold">
+                Password
+              </label>
+              <input
+                value={form.Password}
+                name="Password"
+                type="password"
+                id="password"
+                onChange={setValue}
+                className="outline-none border border-gray-50 placeholder:text-14 px-2 py-1 rounded"
+                required
+              />
+            </div>
           </div>
+
           <div>
             <button className="py-2 bg-yellow-150 w-full rounded text-14" onClick={getUserSignIn}>
               Sign in
@@ -70,3 +102,11 @@ const IMDbSignin = () => {
 };
 
 export default IMDbSignin;
+{
+  /* <UserInfo label="Email" type="email" setForm={setForm} />
+            <UserInfo label="Password" type="password" setForm={setForm} /> */
+}
+// useEffect(() => {
+//   console.log({ form });
+//   return () => {};
+// }, [form]);

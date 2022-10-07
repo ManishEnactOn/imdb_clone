@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "../assets/arrowright.svg";
 
@@ -27,7 +27,6 @@ const SingleMovie = () => {
       <div className="content-container">
         {loading ? (
           <>
-            {/* <div className=" text-white w-full text-center font-bold text-32">Loading....</div> */}
             <SkeletonTheme baseColor="#121212" highlightColor="#333333">
               <div className="md:grid flex flex-col grid-cols-12 gap-2 ">
                 <div className=" col-span-8 h-[547px]">
