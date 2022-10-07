@@ -58,7 +58,7 @@ const SingleMovie = () => {
                   <img
                     src={`${process.env.REACT_APP_IMG_PATH}${singleMovie.poster_path}`}
                     alt="movie poster"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-fill"
                   />
                 }
               </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "../customhooks/use-auth";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
@@ -8,13 +8,18 @@ import { BookmarkIcon } from "@heroicons/react/24/solid";
 import { TvIcon } from "@heroicons/react/24/solid";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { ReactComponent as MovieIcon } from "../assets/movies.svg";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import MenuCategory from "./MenuCategory";
 import SubCategory from "./SubCategory";
 import { useRecoilState } from "recoil";
 import { watchListSelector } from "../atom";
+import SearchMovie from "./SearchMovie";
 
+const API_KEY = process.env.REACT_APP_API_KEY;
+const searchUrl = `https://api.themoviedb.org/3/search/movie/?api_key=${API_KEY}`;
 const Header = () => {
+  const [title, setTitle] = useState("");
+  const [searchData, setSearchData] = useState([]);
   const [text, setText] = useRecoilState(watchListSelector);
   const { isUser, _user, logout } = useAuth();
   // console.log("isUser", isUser, "user", _user.uid);
@@ -27,6 +32,19 @@ const Header = () => {
   }
   const userSignOut = () => {
     logout();
+  };
+
+  useEffect(() => {
+    let timeOut = setTimeout(() => {
+      fetch(`${searchUrl}&query=${title}`)
+        .then((res) => res.json())
+        .then((data) => setSearchData(data.results));
+    }, 500);
+    return () => clearTimeout(timeOut);
+  }, [title]);
+
+  const searchByTitle = (e) => {
+    setTitle(e.target.value);
   };
 
   return (
@@ -85,6 +103,14 @@ const Header = () => {
       {/* *********************** */}
       <div className="py-3 bg-secondary">
         <div className="content-container flex items-center justify-between space-x-3">
+          <div
+            className="absolute text-red-600 min-h-40 bg-gray-95 z-[100] top-12 xl:max-w-[700px]
+                max-w-md translate-x-[250px] rounded"
+          >
+            {searchData &&
+              searchData.slice(0, 5).map((data) => <SearchMovie data={data} key={data.id} setTitle={setTitle} />)}
+          </div>
+
           <div className="flex items-center space-x-2">
             <div
               className="imdb-logo cursor-pointer lg:order-1 order-2"
@@ -112,9 +138,11 @@ const Header = () => {
             <div className="search flex-between flex-1 px-3">
               <input
                 type="text"
-                name=""
-                id=""
+                name="movieTitle"
+                id="title"
+                value={title}
                 placeholder="Search IMBb"
+                onChange={searchByTitle}
                 className=" w-full placeholder:text-gray-50  placeholder:text-14 outline-none"
               />
               <MagnifyingGlassIcon className="h-5 w-5 text-slate-700" />

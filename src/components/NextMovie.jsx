@@ -19,7 +19,7 @@ const NextMovie = ({ movie }) => {
               <div className="h-9 w-9">
                 <Playbutton className="hover:text-yellow-150 cursor-pointer h-full w-full" />
               </div>
-              <span className="pt-2 text-gray-60 font-medium">4:28</span>
+              <span className="pt-2 text-gray-60 font-medium">{movie.vote_average}</span>
             </div>
 
             <div className="title">{movie.original_title}</div>

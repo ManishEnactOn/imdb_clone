@@ -18,7 +18,7 @@ const PopularMoviePoster = ({ movieData }) => {
               <img
                 src={`${process.env.REACT_APP_IMG_PATH}${data.poster_path}`}
                 alt="poster_path"
-                className="h-full w-full object-cover"
+                className="h-full w-full object-fill"
               />
             </div>
           </SwiperSlide>
