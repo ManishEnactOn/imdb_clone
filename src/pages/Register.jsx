@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { auth, app } from "../firebase/firebase";
-import UserInfo, { userData } from "../components/UserInfo";
+// import UserInfo, { userData } from "../components/UserInfo";
 import { Form, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 const Register = () => {
@@ -42,7 +42,7 @@ const Register = () => {
           "Re-enter Password": "",
         });
         alert("Your account is created");
-        console.log(form);
+        // console.log(form);
       }
     }
 
@@ -57,7 +57,7 @@ const Register = () => {
   return (
     <div className="max-w-[348px] mx-auto">
       <div className="imdb-logo cursor-pointer flex justify-center my-4">
-        <img src="./images/imdb-logo.svg" className="w-28 h-14" alt="imdb-logo" />
+        <img src="./images/imdb-logo.svg" className="w-28 h-14" alt="IMDb-Logo" />
       </div>
       <form
         onSubmit={(e) => {
@@ -141,7 +141,7 @@ const Register = () => {
               Sign in
             </button>
           </h5>
-          <h6 className="errormsg bg-red-100 text-red-500 text-center rounded font-medium text-14">{errorMessage}</h6>
+          <h6 className="errorMsg bg-red-100 text-red-500 text-center rounded font-medium text-14">{errorMessage}</h6>
         </div>
       </form>
     </div>

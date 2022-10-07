@@ -17,7 +17,7 @@ import { watchListSelector } from "../atom";
 const Header = () => {
   const [text, setText] = useRecoilState(watchListSelector);
   const { isUser, _user, logout } = useAuth();
-  console.log("isUser", isUser, "user", _user.uid);
+  // console.log("isUser", isUser, "user", _user.uid);
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
   var currentUserData;
@@ -115,7 +115,7 @@ const Header = () => {
                 name=""
                 id=""
                 placeholder="Search IMBb"
-                className=" w-full placeholder:text-gray-50 outline-none"
+                className=" w-full placeholder:text-gray-50  placeholder:text-14 outline-none"
               />
               <MagnifyingGlassIcon className="h-5 w-5 text-slate-700" />
             </div>

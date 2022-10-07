@@ -125,7 +125,7 @@ const WatchList = () => {
             <div className="min-h-[400px] flex flex-col justify-center items-center ">
               <h1 className="text-24 text-gray-50 font-bold">Your WatchList is Empty</h1>
               <p className="text-gray-50">
-                Add movies and shows to your Watchlist to keep track of what you want to watch.
+                Add movies and shows to your WatchList to keep track of what you want to watch.
               </p>
               <Link to="/" className="text-gray-70">
                 Popular Movies

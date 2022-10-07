@@ -1,5 +1,4 @@
 import React from "react";
-import { ReactComponent as MovieIcon } from "../assets/movies.svg";
 
 const MenuCategory = ({ icon, title }) => {
   return (

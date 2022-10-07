@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Movie from "./Movie";
 import "swiper/css";
@@ -6,8 +6,8 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper";
 import MovieSkeletonLoader from "./MovieSkeletonLoader";
 import useFetchUrl from "../customhooks/fetchUrl";
-
-const PopularMovieApi = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
+const API_KEY = process.env.REACT_APP_API_KEY;
+const PopularMovieApi = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US`;
 const PopularMovies = () => {
   const { data, loading } = useFetchUrl(PopularMovieApi);
 
@@ -17,9 +17,9 @@ const PopularMovies = () => {
   // });
   // console.log(_data);
 
-  useEffect(() => {
-    console.log("called");
-  }, []);
+  // useEffect(() => {
+  //   console.log("called");
+  // }, []);
 
   return (
     <div className="content-container relative">
