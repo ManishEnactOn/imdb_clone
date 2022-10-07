@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { auth, app } from "../firebase/firebase";
 import UserInfo, { userData } from "../components/UserInfo";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 const Register = () => {
   const navigate = useNavigate();
@@ -17,10 +17,9 @@ const Register = () => {
     name = e.target.name;
     value = e.target.value;
     setForm((prev) => ({ ...prev, [name]: value }));
-    console.log(form);
   };
 
-  const getUserData = () => {
+  const getUserData = async () => {
     if (
       form.UserName &&
       form.Email &&
@@ -28,14 +27,23 @@ const Register = () => {
       form["Re-enter Password"] &&
       form.Password === form["Re-enter Password"]
     ) {
-      createUserWithEmailAndPassword(auth, form.Email, form.Password)
-        .then((res) => setForm((form.UserName = "")))
-        .catch((error) => {
-          setErrorMessage(error.code);
-          setTimeout(() => {
-            setErrorMessage("");
-          }, 2000);
+      const response = await createUserWithEmailAndPassword(auth, form.Email, form.Password).catch((error) => {
+        setErrorMessage(error.code);
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 2000);
+      });
+
+      if (response) {
+        setForm({
+          UserName: "",
+          Email: "",
+          Password: "",
+          "Re-enter Password": "",
         });
+        alert("Your account is created");
+        console.log(form);
+      }
     }
 
     if (form.Password !== form["Re-enter Password"]) {
@@ -65,7 +73,7 @@ const Register = () => {
                 UserName
               </label>
               <input
-                value={value}
+                value={form.UserName}
                 name="UserName"
                 type="text"
                 id="username"
@@ -79,7 +87,7 @@ const Register = () => {
                 Email
               </label>
               <input
-                value={value}
+                value={form.Email}
                 name="Email"
                 type="email"
                 id="email"
@@ -93,7 +101,7 @@ const Register = () => {
                 Password
               </label>
               <input
-                value={value}
+                value={form.Password}
                 name="Password"
                 type="password"
                 id="password"
@@ -107,7 +115,7 @@ const Register = () => {
                 Re-enter Password
               </label>
               <input
-                value={value}
+                value={form["Re-enter Password"]}
                 name="Re-enter Password"
                 type="password"
                 id="Re-enter password"
