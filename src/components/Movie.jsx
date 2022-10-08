@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useAuth from "../customhooks/use-auth";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { ReactComponent as WatchListIcon } from "../assets/watchlisticon.svg";
 import { ReactComponent as PlusIcon } from "../assets/plusicon.svg";
 import { ReactComponent as StarIcon } from "../assets/star.svg";
@@ -70,7 +70,7 @@ const Movie = ({ data }) => {
         <PlusIcon className={`absolute cursor-pointer text-white z-50 ${isSelect ? "hidden" : "block"} `} />
         <CheckIcon className={`absolute cursor-pointer text-black z-50 h-6 w-6 ${isSelect ? "block" : "hidden"}`} />
       </div>
-      <NavLink to={`/singlemovie/${data.id}`}>
+      <Link to={`/singlemovie/${data.id}`}>
         <div className="cursor-pointer">
           <div>
             <div className="moviePoster h-[274px]">
@@ -98,7 +98,7 @@ const Movie = ({ data }) => {
             </div>
           </div>
         </div>
-      </NavLink>
+      </Link>
     </div>
   );
 };

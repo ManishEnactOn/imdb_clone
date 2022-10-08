@@ -17,7 +17,7 @@ const useFetchUrl = (url1) => {
         }, 1500);
       })
       .catch((e) => {
-        console.log({ e });
+        // console.log({ e });
         setLoading(false);
       });
   }, []);

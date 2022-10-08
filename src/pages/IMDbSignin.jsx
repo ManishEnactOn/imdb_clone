@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
-import UserInfo from "../components/UserInfo";
+// import UserInfo from "../components/UserInfo";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
@@ -23,7 +23,7 @@ const IMDbSignin = () => {
     if (form.Email && form.Password) {
       signInWithEmailAndPassword(auth, form.Email, form.Password)
         .then((res) => {
-          console.log({ res });
+          // console.log({ res });
           navigate("/");
         })
         .catch((error) => {
