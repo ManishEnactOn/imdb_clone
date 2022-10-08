@@ -14,8 +14,9 @@ const WatchList = () => {
   // const setText=useSetRecoilState(watchListSelector);
   const { _user } = useAuth();
   var currentData;
-  let currentUserData = text.find((item) => item.uid === _user.uid);
 
+  let currentUserData = text.find((item) => item.uid === _user.uid);
+  console.log(currentUserData);
   const myWatchList = () => {
     const promises = currentUserData.watchListId.map(async (data) => {
       return fetch(`${url}${data}?api_key=${API_KEY}&language=en-US`).then((response) => {
