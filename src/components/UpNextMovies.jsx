@@ -6,12 +6,10 @@ import PopularMoviePoster from "./PopularMoviePoster";
 import { useNavigate } from "react-router-dom";
 import NextMovieSkeletonLoader from "../components/NextMovieSkeletonLoader";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-
-const upComingMovie = `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
-
 const UpNextMovies = () => {
   const navigate = useNavigate();
-  const { data, loading } = useFetchUrl(upComingMovie);
+  const { data, loading } = useFetchUrl("upcoming");
+  const array = [...Array(3)];
   return (
     <div className="content-container">
       <div className="grid grid-cols-12 gap-3 ">
@@ -35,7 +33,7 @@ const UpNextMovies = () => {
               // "Loading..."
 
               <>
-                {Array.from(Array(3).keys()).map((number) => (
+                {array.map((number) => (
                   <NextMovieSkeletonLoader key={number} />
                 ))}
               </>

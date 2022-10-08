@@ -4,10 +4,11 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "../assets/arrowright.svg";
 import HomeLayout from "../layouts/HomeLayout";
+import { url, API_KEY } from "../config";
 
 const SingleMovie = () => {
   const { id } = useParams();
-  const singleMovieApi = `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
+  const singleMovieApi = `${url}${id}?api_key=${API_KEY}&language=en-US`;
   const navigate = useNavigate();
   const [singleMovie, setSingleMovie] = useState([]);
   const [loading, setLoading] = useState(false);

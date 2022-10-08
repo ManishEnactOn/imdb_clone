@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useAuth from "../customhooks/use-auth";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ReactComponent as WatchListIcon } from "../assets/watchlisticon.svg";
 import { ReactComponent as PlusIcon } from "../assets/plusicon.svg";
 import { ReactComponent as StarIcon } from "../assets/star.svg";
@@ -55,8 +55,6 @@ const Movie = ({ data }) => {
       );
     }
   };
-  // console.log(text);
-
   const getMovieId = (id) => {
     setIsSelect(!isSelect);
     if (!isSelect) addWatchList(id);

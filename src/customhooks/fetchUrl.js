@@ -1,13 +1,11 @@
-import React from "react";
 import { useState, useEffect } from "react";
-const useFetchUrl = (url1) => {
+import { url, API_KEY } from "../config";
+const useFetchUrl = (category) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-
-  // var url = url1;
   useEffect(() => {
     setLoading(true);
-    fetch(url1)
+    fetch(`${url}${category}?api_key=${API_KEY}&&language=en-US`)
       .then((res) => res.json())
       .then((data) => {
         setTimeout(() => {

@@ -6,11 +6,9 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper";
 import MovieSkeletonLoader from "./MovieSkeletonLoader";
 import useFetchUrl from "../customhooks/fetchUrl";
-
-const TopRatedMovieApi = `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
 const TopRatedMovies = () => {
-  const { data, loading } = useFetchUrl(TopRatedMovieApi);
-
+  const { data, loading } = useFetchUrl("top_rated");
+  const array = Array(5);
   return (
     <div className="content-container">
       <Swiper
@@ -37,7 +35,7 @@ const TopRatedMovies = () => {
         {loading ? (
           <>
             <div className="grid grid-cols-5 gap-4 py-2">
-              {Array.from(Array(5).keys()).map((number) => (
+              {array.map((number) => (
                 <MovieSkeletonLoader key={number} />
               ))}
             </div>

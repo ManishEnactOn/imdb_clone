@@ -1,7 +1,7 @@
 import React from "react";
 import { auth } from "./firebase/firebase";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route, MemoryRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomeLayout from "./layouts/HomeLayout";
 import Home from "./pages/Home";
 import IMDbSignin from "./pages/IMDbSignin";
@@ -10,9 +10,6 @@ import SignIn from "./pages/SignIn";
 import SingleMovie from "./pages/SingleMovie";
 import Upcoming from "./pages/Upcoming";
 import WatchList from "./pages/WatchList";
-// import { createStackNavigator } from "@react-navigation/stack";
-
-// const Stack = createStackNavigator();
 
 function App() {
   return (

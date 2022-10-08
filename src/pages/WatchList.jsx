@@ -5,8 +5,7 @@ import { useRecoilState } from "recoil";
 import { watchListSelector } from "../atom";
 import useAuth from "../customhooks/use-auth";
 import { Link } from "react-router-dom";
-// const watchListUrl = `https://api.themoviedb.org/3/movie/634649?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
-
+import { url, API_KEY } from "../config";
 const WatchList = () => {
   const [watchListData, setWatchListData] = useState([]);
   const [defaultData, setDefaultData] = useState([]);
@@ -19,9 +18,7 @@ const WatchList = () => {
 
   const myWatchList = () => {
     const promises = currentUserData.watchListId.map(async (data) => {
-      return fetch(
-        `https://api.themoviedb.org/3/movie/${data}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-      ).then((response) => {
+      return fetch(`${url}${data}?api_key=${API_KEY}&language=en-US`).then((response) => {
         return response.json();
       });
     });
