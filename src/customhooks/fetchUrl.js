@@ -1,6 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { url, API_KEY } from "../config";
+
 const useFetchUrl = (url1) => {
+  console.log("url", url);
+
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 

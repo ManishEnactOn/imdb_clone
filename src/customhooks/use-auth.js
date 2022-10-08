@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
-import { url, API_KEY } from "../config";
 const useAuth = () => {
-  console.log("url", url);
   const [_user, setUser] = useState({});
   const [isUser, setIsUser] = useState(false);
   useEffect(() => {
