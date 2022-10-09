@@ -51,7 +51,9 @@ const Header = () => {
     <header>
       {/* ******* Menu Section ********* */}
       <div
-        className={`fixed z-[99] bg-primary h-screen overflow-y-auto w-full text-white ${toggle ? "block" : "hidden"}`}
+        className={`fixed z-[99] bg-primary h-screen overflow-y-auto w-full text-white ${
+          toggle ? "block" : "hidden"
+        }`}
       >
         <div className="signIn-container">
           <div className="flex-between py-8">
@@ -89,7 +91,10 @@ const Header = () => {
               </div>
             </div>
             <div>
-              <MenuCategory icon={<StarIcon className="text-yellow-150 h-6" />} title="Awards & Events" />
+              <MenuCategory
+                icon={<StarIcon className="text-yellow-150 h-6" />}
+                title="Awards & Events"
+              />
               <div className=" flex flex-col space-y-3 pl-9 pt-4">
                 <SubCategory title="Oscars" />
                 <SubCategory title="Best Picture Winners" />
@@ -108,7 +113,9 @@ const Header = () => {
                 max-w-md translate-x-[250px] rounded"
           >
             {searchData &&
-              searchData.slice(0, 5).map((data) => <SearchMovie data={data} key={data.id} setTitle={setTitle} />)}
+              searchData
+                .slice(0, 5)
+                .map((data) => <SearchMovie data={data} key={data.id} setTitle={setTitle} />)}
           </div>
 
           <div className="flex items-center space-x-2">

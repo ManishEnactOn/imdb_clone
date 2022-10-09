@@ -67,12 +67,18 @@ const WatchlistCart = ({ data }) => {
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-2 bg-slate-400 h-36 relative">
             <div onClick={() => getMovieId(data.id)}>
-              <WatchListIcon className={`absolute z-50 cursor-pointer ${isSelect && "fill-yellow-400"} `} />
+              <WatchListIcon
+                className={`absolute z-50 cursor-pointer ${isSelect && "fill-yellow-400"} `}
+              />
               <PlusIcon
-                className={`absolute cursor-pointer text-white z-50 h-6 w-6 ${isSelect ? "hidden" : "block"}`}
+                className={`absolute cursor-pointer text-white z-50 h-6 w-6 ${
+                  isSelect ? "hidden" : "block"
+                }`}
               />
               <CheckIcon
-                className={`absolute cursor-pointer text-black z-50 h-6 w-6 ${isSelect ? "block" : "hidden"}`}
+                className={`absolute cursor-pointer text-black z-50 h-6 w-6 ${
+                  isSelect ? "block" : "hidden"
+                }`}
               />
             </div>
             <img

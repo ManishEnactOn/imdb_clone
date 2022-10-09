@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react";
+import useAuth from "../customhooks/use-auth";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 import WatchlistCart from "../components/WatchlistCart";
 import { useRecoilState } from "recoil";
 import { watchListSelector } from "../atom";
-import useAuth from "../customhooks/use-auth";
 import { Link } from "react-router-dom";
 import { url, API_KEY } from "../config";
 const WatchList = () => {
+  const { isUser, _user } = useAuth();
   const [watchListData, setWatchListData] = useState([]);
   const [defaultData, setDefaultData] = useState([]);
   const [text, setText] = useRecoilState(watchListSelector);
-  // const text = useRecoilValue(watchListSelector);
-  // const setText=useSetRecoilState(watchListSelector);
-  const { _user } = useAuth();
+  console.log("_user", _user);
   var currentData;
+  var currentUserData;
+  if (isUser) {
+    currentUserData = text.find((item) => item.uid === _user.uid);
+  }
 
-  let currentUserData = text.find((item) => item.uid === _user.uid);
-  console.log(currentUserData);
+  console.log("currentUserData", currentUserData);
   const myWatchList = () => {
-    const promises = currentUserData.watchListId.map(async (data) => {
+    const promises = currentUserData?.watchListId.map(async (data) => {
       return fetch(`${url}${data}?api_key=${API_KEY}&language=en-US`).then((response) => {
         return response.json();
       });
@@ -33,7 +35,7 @@ const WatchList = () => {
   };
   useEffect(() => {
     myWatchList();
-  }, [currentUserData.watchListId]);
+  }, [currentUserData?.watchListId]);
 
   const sortByRatings = () => {
     currentData = watchListData.slice();
@@ -53,7 +55,9 @@ const WatchList = () => {
   const sortByReleaseDate = () => {
     currentData = watchListData.slice();
     setWatchListData(
-      currentData.sort((a, b) => new Date(a.release_date).getTime() - new Date(b.release_date).getTime())
+      currentData.sort(
+        (a, b) => new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
+      )
     );
   };
 
@@ -96,13 +100,16 @@ const WatchList = () => {
 
         <div className="sortWatchList px-7 py-3 flex-between border-y-2 ">
           <div className="space-x-2 text-14 text-gray-55">
-            <span>{currentUserData.watchListId.length}</span>
+            <span>{currentUserData?.watchListId.length}</span>
             <span>Titles</span>
           </div>
 
           <div className="flex items-center space-x-2">
             <h4 className="text-14 font-normal text-gray-70">Sort by:</h4>
-            <select onChange={optionHandler} className="px-4 py-1 border-2 rounded text-14 font-normal text-gray-70">
+            <select
+              onChange={optionHandler}
+              className="px-4 py-1 border-2 rounded text-14 font-normal text-gray-70"
+            >
               <option value="listOrder">List Order</option>
               <option value="Alphabetical">Alphabetical</option>
               <option value="IMDb Rating">IMDb Rating</option>
